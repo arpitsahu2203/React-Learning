@@ -1,5 +1,17 @@
+/**
+ * ============================================================================
+ * REVISION NOTES: React-router -> About.jsx (Static Child Route Component)
+ * ============================================================================
+ * 
+ * 1. ROLE AS A CHILD ROUTE:
+ *    - In `main.jsx`, this component is mapped to `{ path: "about", element: <About /> }`.
+ *    - When the browser navigates to `/about`, React Router mounts this component
+ *      inside the `<Outlet />` defined in `Root.jsx`.
+ *    - The surrounding `<Header />` and `<Footer />` remain static and do not re-render.
+ * ============================================================================
+ */
+
 import React from 'react'
-import { BrowserRouter, Link, NavLink } from "react-router";
 
 export default function About() {
     return (
@@ -9,7 +21,7 @@ export default function About() {
                     <div className="md:5/12 lg:w-5/12">
                         <img
                             src="https://images.pexels.com/photos/29459444/pexels-photo-29459444.jpeg"
-                            alt="image"
+                            alt="About us illustration"
                         />
                     </div>
                     <div className="md:7/12 lg:w-6/12">

@@ -1,15 +1,38 @@
+/**
+ * ============================================================================
+ * REVISION NOTES: React-router -> Header.jsx (Link vs NavLink & Active State)
+ * ============================================================================
+ * 
+ * 1. <Link> VS STANDARD <a> TAG:
+ *    - In traditional HTML, `<a href="/about">` causes the browser to make a new network
+ *      request to the server, resulting in a full page reload.
+ *    - A full page reload wipes all JavaScript variables, React component states, and cache.
+ *    - `<Link to="/about">` uses the HTML5 History API (`window.history.pushState`)
+ *      under the hood to change the URL without refreshing the page, preserving client state
+ *      and giving instant Single Page Application (SPA) navigation.
+ * 
+ * 2. <NavLink> (FOR NAVIGATION BARS & ACTIVE LINKS):
+ *    - `<NavLink>` is a specialized version of `<Link>` that knows whether its route is active.
+ *    - It allows you to pass a callback function to `className` or `style` that receives
+ *      an object containing `{ isActive, isPending }`:
+ *        ```jsx
+ *        className={({ isActive }) =>
+ *          `nav-item ${isActive ? "text-orange-700 font-bold" : "text-gray-700"}`
+ *        }
+ *        ```
+ *    - This makes highlighting the current active page in navbars and menus effortless.
+ * ============================================================================
+ */
+
 import React from 'react'
-import { BrowserRouter, Link, NavLink } from "react-router";
-//So basically we use Link inplace of a tag of html as a tag causes the whole page to load
-//NavLink is basically similar as of link but the difference is that it provides the isActive function that describes the active page ie ideal for navigation bar
-
-
+import { Link, NavLink } from "react-router";
 
 export default function Header() {
     return (
         <header className="shadow sticky z-50 top-0">
             <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5">
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+                    {/* Link for Logo: Navigates home without page reload */}
                     <Link to="/" className="flex items-center">
                         <img
                             src="https://alexharkness.com/wp-content/uploads/2020/06/logo-2.png"
@@ -37,10 +60,11 @@ export default function Header() {
                     >
                         <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                             <li>
+                                {/* NavLink uses isActive callback to highlight active route */}
                                 <NavLink
-                                to={"/"}
-                                    className={({isActive}) =>
-                                        `block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-orange-700" :"text-grey-700"} border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                                    to="/"
+                                    className={({ isActive }) =>
+                                        `block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-orange-700" : "text-gray-700"} border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
                                     }
                                 >
                                     Home
@@ -48,9 +72,9 @@ export default function Header() {
                             </li>
                             <li>
                                 <NavLink
-                                to={"/about"}
-                                    className={({isActive}) =>
-                                        `block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-orange-700" :"text-grey-700"} border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                                    to="/about"
+                                    className={({ isActive }) =>
+                                        `block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-orange-700" : "text-gray-700"} border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
                                     }
                                 >
                                     About
@@ -58,9 +82,9 @@ export default function Header() {
                             </li>
                             <li>
                                 <NavLink
-                                to={"/contact-us"}
-                                    className={({isActive}) =>
-                                        `block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-orange-700" :"text-grey-700"} border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                                    to="/contact-us"
+                                    className={({ isActive }) =>
+                                        `block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-orange-700" : "text-gray-700"} border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
                                     }
                                 >
                                     Contact Us
@@ -68,16 +92,14 @@ export default function Header() {
                             </li>
                             <li>
                                 <NavLink
-                                to={"/github"}
-                                    className={({isActive}) =>
-                                        `block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-orange-700" :"text-grey-700"} border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                                    to="/github"
+                                    className={({ isActive }) =>
+                                        `block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-orange-700" : "text-gray-700"} border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
                                     }
                                 >
                                     Github
                                 </NavLink>
                             </li>
-                            
-                            
                         </ul>
                     </div>
                 </div>
